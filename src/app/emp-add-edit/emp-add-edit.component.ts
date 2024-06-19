@@ -31,6 +31,17 @@ export class EmpAddEditComponent {
   empForm = this.formbuilder.group({
     firstName : '',
     lastName: '',
-
+    email: '',
+    dob: '',
+    gender: '',
+    education: '',
+    company: '',
+    experience: '',
+    package: ''
   })
+  onFormSubmit(){
+    if(this.empForm.valid){
+      console.log(this.empForm.value)
+    }
+  }
 }
