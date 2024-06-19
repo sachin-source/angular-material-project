@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialogActions, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -7,7 +7,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
@@ -26,5 +26,11 @@ export class EmpAddEditComponent {
     'Intermediate',
     'Graduate',
     'Post Graduate'
-  ]
+  ];
+  formbuilder = inject(FormBuilder);
+  empForm = this.formbuilder.group({
+    firstName : '',
+    lastName: '',
+
+  })
 }
