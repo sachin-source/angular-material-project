@@ -8,6 +8,9 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { EmployeeService } from '../services/employee.service';
+import { DialogRef } from '@angular/cdk/dialog';
+import { provideHttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -19,7 +22,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './emp-add-edit.component.scss'
 })
 export class EmpAddEditComponent {
+  
+  // Injections
+  _formbuilder = inject(FormBuilder);
+  _empService = inject(EmployeeService);
+  _dialogRef = inject(DialogRef<EmpAddEditComponent>);
 
+  // Data declarations
   education:string[] = [
     'Matric',
     'Diploma',
@@ -27,8 +36,7 @@ export class EmpAddEditComponent {
     'Graduate',
     'Post Graduate'
   ];
-  formbuilder = inject(FormBuilder);
-  empForm = this.formbuilder.group({
+  empForm = this._formbuilder.group({
     firstName : '',
     lastName: '',
     email: '',
@@ -39,9 +47,17 @@ export class EmpAddEditComponent {
     experience: '',
     package: ''
   })
+
+  // Methods
   onFormSubmit(){
     if(this.empForm.valid){
-      console.log(this.empForm.value)
+      this._empService.addEmployee(this.empForm.value).subscribe({
+        next : (val:any) => {
+          alert('Employee added successfully');
+          this._dialogRef.close()
+        },
+        error: (err:any) => {}
+      })
     }
   }
 }

@@ -1,3 +1,16 @@
 {
-    "employees" : []
+  "employees": [
+    {
+      "id": "883a",
+      "firstName": "sachin",
+      "lastName": "asdf",
+      "email": "sachinmgvt@gmail.com",
+      "dob": "2024-06-19T18:30:00.000Z",
+      "gender": "male",
+      "education": "Matric",
+      "company": "ekl",
+      "experience": "4",
+      "package": "4"
+    }
+  ]
 }
