@@ -102,4 +102,11 @@ export class AppComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  deleteEmployee(id:any){
+    this.employeeService.deleteEmployee(id).subscribe({
+      next: console.log,
+      error: console.log
+    })
+  }
 }
