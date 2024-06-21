@@ -3,7 +3,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { EmpAddEditComponent } from './emp-add-edit/emp-add-edit.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { EmployeeService } from './services/employee.service';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
@@ -19,39 +19,6 @@ export interface UserData {
   fruit: string;
 }
 
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -64,7 +31,7 @@ export class AppComponent implements OnInit {
 
   // Injections
   readonly dialog = inject(MatDialog);
-  employeeService = inject(EmployeeService)
+  employeeService = inject(EmployeeService);
 
   // readonly data$ = this.employeeService.getEmployeeList();
 
@@ -118,5 +85,10 @@ export class AppComponent implements OnInit {
       },
       error: console.log
     })
+  }
+
+
+  openEditForm(data:any){
+    this.dialog.open(EmpAddEditComponent, { data })
   }
 }

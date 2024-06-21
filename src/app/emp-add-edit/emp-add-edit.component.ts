@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { Component, OnInit, inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -18,12 +18,13 @@ import { EmployeeService } from '../services/employee.service';
   templateUrl: './emp-add-edit.component.html',
   styleUrl: './emp-add-edit.component.scss'
 })
-export class EmpAddEditComponent {
+export class EmpAddEditComponent implements OnInit {
   
   // Injections
   _formbuilder = inject(FormBuilder);
   _empService = inject(EmployeeService);
   _dialogRef = inject(MatDialogRef<EmpAddEditComponent>);
+  private data = inject(MAT_DIALOG_DATA);
 
   // Data declarations
   education:string[] = [
@@ -43,7 +44,11 @@ export class EmpAddEditComponent {
     company: '',
     experience: '',
     package: ''
-  })
+  })//.patchValue(this.data);
+
+  ngOnInit(): void {
+    this.empForm.patchValue(this.data);
+  }
 
   // Methods
   onFormSubmit(){
