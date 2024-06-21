@@ -53,13 +53,23 @@ export class EmpAddEditComponent implements OnInit {
   // Methods
   onFormSubmit(){
     if(this.empForm.valid){
-      this._empService.addEmployee(this.empForm.value).subscribe({
-        next : (val:any) => {
-          alert('Employee added successfully');
-          this._dialogRef.close(true);
-        },
-        error: (err:any) => {}
-      })
+      if (this.data) {
+        this._empService.updateEmployee(this.data.id, this.empForm.value).subscribe({
+          next : (val:any) => {
+            alert('Employee updated successfully');
+            this._dialogRef.close(true);
+          },
+          error: (err:any) => {}
+        })
+      } else {
+        this._empService.addEmployee(this.empForm.value).subscribe({
+          next : (val:any) => {
+            alert('Employee added successfully');
+            this._dialogRef.close(true);
+          },
+          error: (err:any) => {}
+        })
+      }
     }
   }
 }
