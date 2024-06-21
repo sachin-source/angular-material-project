@@ -69,7 +69,14 @@ export class AppComponent implements OnInit {
   // readonly data$ = this.employeeService.getEmployeeList();
 
   openAddEditEmpForm(){
-    this.dialog.open(EmpAddEditComponent)
+    const dialogRef = this.dialog.open(EmpAddEditComponent);
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if(val){
+          this.getEmployeeList()
+        }
+      }
+    })
   }
 
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email', 'dob', 'gender', 'education', 'company', 'experience', 'package', 'action'];

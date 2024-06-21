@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { MatDialogActions, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -9,13 +9,12 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
-import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-emp-add-edit',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatRadioModule, MatSelectModule, ReactiveFormsModule],
+  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatRadioModule, MatSelectModule, ReactiveFormsModule],
   templateUrl: './emp-add-edit.component.html',
   styleUrl: './emp-add-edit.component.scss'
 })
@@ -24,7 +23,7 @@ export class EmpAddEditComponent {
   // Injections
   _formbuilder = inject(FormBuilder);
   _empService = inject(EmployeeService);
-  _dialogRef = inject(DialogRef<EmpAddEditComponent>);
+  _dialogRef = inject(MatDialogRef<EmpAddEditComponent>);
 
   // Data declarations
   education:string[] = [
@@ -52,7 +51,7 @@ export class EmpAddEditComponent {
       this._empService.addEmployee(this.empForm.value).subscribe({
         next : (val:any) => {
           alert('Employee added successfully');
-          this._dialogRef.close()
+          this._dialogRef.close(true);
         },
         error: (err:any) => {}
       })
