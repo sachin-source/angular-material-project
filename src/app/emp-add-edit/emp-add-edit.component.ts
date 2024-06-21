@@ -9,6 +9,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
+import { CoreService } from '../core/core.service';
 
 @Component({
   selector: 'app-emp-add-edit',
@@ -25,6 +26,7 @@ export class EmpAddEditComponent implements OnInit {
   _empService = inject(EmployeeService);
   _dialogRef = inject(MatDialogRef<EmpAddEditComponent>);
   data = inject(MAT_DIALOG_DATA);
+  coreService = inject(CoreService);
 
   // Data declarations
   education:string[] = [
@@ -56,7 +58,8 @@ export class EmpAddEditComponent implements OnInit {
       if (this.data) {
         this._empService.updateEmployee(this.data.id, this.empForm.value).subscribe({
           next : (val:any) => {
-            alert('Employee updated successfully');
+            // alert('Employee updated successfully');
+            this.coreService.openSnackBar('Employee updated successfully')
             this._dialogRef.close(true);
           },
           error: (err:any) => {}
@@ -64,7 +67,8 @@ export class EmpAddEditComponent implements OnInit {
       } else {
         this._empService.addEmployee(this.empForm.value).subscribe({
           next : (val:any) => {
-            alert('Employee added successfully');
+            // alert('Employee added successfully');
+            this.coreService.openSnackBar('Employee added successfully')
             this._dialogRef.close(true);
           },
           error: (err:any) => {}

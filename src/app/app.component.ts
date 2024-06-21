@@ -11,6 +11,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CoreService } from './core/core.service';
 
 export interface UserData {
   id: string;
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit {
   // Injections
   readonly dialog = inject(MatDialog);
   employeeService = inject(EmployeeService);
+  coreService = inject(CoreService);
 
   // readonly data$ = this.employeeService.getEmployeeList();
 
@@ -80,7 +82,7 @@ export class AppComponent implements OnInit {
   deleteEmployee(id:any){
     this.employeeService.deleteEmployee(id).subscribe({
       next: (value:any) => {
-        console.log("Employee deleted successfully!");
+        this.coreService.openSnackBar('Employee deleted!', 'Done')
         this.getEmployeeList()
       },
       error: console.log
