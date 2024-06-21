@@ -24,7 +24,7 @@ export class EmpAddEditComponent implements OnInit {
   _formbuilder = inject(FormBuilder);
   _empService = inject(EmployeeService);
   _dialogRef = inject(MatDialogRef<EmpAddEditComponent>);
-  private data = inject(MAT_DIALOG_DATA);
+  data = inject(MAT_DIALOG_DATA);
 
   // Data declarations
   education:string[] = [
